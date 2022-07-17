@@ -38,4 +38,13 @@ app.get("/:word/echo", function(req, res) {
     res.json({echo: req.params.word});
 });
 
+// Note, the first and last name parameters should be encoded in a query string e.g. ?first=firstname&last=lastname -- so the url would be .../name/?first=firstname&last=lastname
+app.route("/name")
+.get(function(req, res) {
+    res.json({ name: `${req.query.first} ${req.query.last}`});
+})
+.post(function(req, res) {
+    // next task
+});
+
 module.exports = app;
