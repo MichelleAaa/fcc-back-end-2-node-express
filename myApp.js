@@ -11,7 +11,7 @@ app.use(express.static(__dirname + "/public"));
 app.use("/public", express.static(__dirname + "/public"));
 
 app.use(function(req, res, next) {
-    console.log(`${req.method} ${req.path} - ${req.ip}`);
+    console.log(`${req.method} ${req.path} - ${req.ip}`);//You can get the request method (http verb), the relative route path, and the caller’s ip from the request object using req.method, req.path and req.ip
     next();
 })
 
@@ -26,5 +26,12 @@ app.get("/json", function(req, res) {
         res.json({"message": "Hello json"});
     }
 });
+
+app.get('/now', function(req, res, next) {
+    req.time = new Date().toString();
+    next();
+}, function(req, res) {
+    res.json({time: req.time});
+}); 
 
 module.exports = app;
